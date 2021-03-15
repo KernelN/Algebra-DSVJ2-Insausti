@@ -128,17 +128,22 @@ namespace CustomMath
         {
             return "X = " + x.ToString() + "   Y = " + y.ToString() + "   Z = " + z.ToString();
         }
-        public static float Angle(Vec3 from, Vec3 to)
+        public static float Angle(Vec3 from, Vec3 to) //MUST CHECK
         {
-            return (float)Math.Atan((from.y - to.y) / (from.x - to.x)); //MUST CHECK
+            return (float)Math.Atan((from.y - to.y) / (from.x - to.x)); 
         }
-        public static Vec3 ClampMagnitude(Vec3 vector, float maxLength)
+        public static Vec3 ClampMagnitude(Vec3 vector, float maxLength) //MUST CHECK
         {
-            throw new NotImplementedException();
+            if (SqrMagnitude(vector) > maxLength*maxLength)
+            {
+                vector *= (maxLength * maxLength) / SqrMagnitude(vector);
+            }
+         
+            return vector; 
         }
         public static float Magnitude(Vec3 vector)
         {
-            throw new NotImplementedException();
+            return (float)Math.Sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
         }
         public static Vec3 Cross(Vec3 a, Vec3 b)
         {
@@ -170,7 +175,7 @@ namespace CustomMath
         }
         public static float SqrMagnitude(Vec3 vector)
         {
-            throw new NotImplementedException();
+            return vector.x * vector.x + vector.y * vector.y + vector.z * vector.z;
         }
         public static Vec3 Project(Vec3 vector, Vec3 onNormal) 
         {
