@@ -91,7 +91,7 @@ namespace CustomMath
 
         public static Vec3 operator -(Vec3 leftV3, Vec3 rightV3)
         {
-            throw new NotImplementedException();
+            return new Vec3(leftV3.x - rightV3.x, leftV3.y - rightV3.y, leftV3.z - rightV3.z);
         }
 
         public static Vec3 operator -(Vec3 v3)
@@ -130,7 +130,7 @@ namespace CustomMath
         }
         public static float Angle(Vec3 from, Vec3 to)
         {
-            throw new NotImplementedException();
+            return (float)Math.Atan((from.y - to.y) / (from.x - to.x)); //MUST CHECK
         }
         public static Vec3 ClampMagnitude(Vec3 vector, float maxLength)
         {
