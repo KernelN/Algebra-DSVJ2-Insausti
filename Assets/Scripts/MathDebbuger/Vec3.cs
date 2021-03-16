@@ -176,11 +176,19 @@ namespace CustomMath
         }
         public static Vec3 Max(Vec3 a, Vec3 b)
         {
-            throw new NotImplementedException();
+            if (a.x < b.x) { a.x = b.x; }
+            if (a.y < b.y) { a.y = b.y; }
+            if (a.z < b.z) { a.z = b.z; }
+
+            return a;
         }
         public static Vec3 Min(Vec3 a, Vec3 b)
         {
-            throw new NotImplementedException();
+            if (a.x > b.x) { a.x = b.x; }
+            if (a.y > b.y) { a.y = b.y; }
+            if (a.z > b.z) { a.z = b.z; }
+
+            return a; 
         }
         public static float SqrMagnitude(Vec3 vector)
         {
