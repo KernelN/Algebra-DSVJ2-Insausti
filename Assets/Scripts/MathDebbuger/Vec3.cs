@@ -151,7 +151,7 @@ namespace CustomMath
         }
         public static float Distance(Vec3 a, Vec3 b)
         {
-            throw new NotImplementedException();
+            return Math.Abs(SqrMagnitude(a) - SqrMagnitude(b));
         }
         public static float Dot(Vec3 a, Vec3 b)
         {
