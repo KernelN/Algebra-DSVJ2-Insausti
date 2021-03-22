@@ -215,7 +215,7 @@ namespace CustomMath
         }
         public void Normalize()
         {
-            throw new NotImplementedException();
+            this *= 1 / SqrMagnitude(this);
         }
         #endregion
 
