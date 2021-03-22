@@ -191,15 +191,20 @@ namespace CustomMath
         }
         public static Vec3 Project(Vec3 vector, Vec3 onNormal) 
         {
-            //float diff_x = Math.Abs(vector.x - onNormal.x);
-            //float diff_y = Math.Abs(vector.y - onNormal.y);
-            //float diff_z = Math.Abs(vector.z - onNormal.z);
+            float diff_x = Math.Abs(vector.x - onNormal.x);
+            float diff_y = Math.Abs(vector.y - onNormal.y);
+            float diff_z = Math.Abs(vector.z - onNormal.z);
 
-            //if (Mathf.Abs(diff_z))
-            //{
-
-            //}
-            throw new NotImplementedException(); //increase all components until 1 of them is ~= to the parallel in the other vector
+            if (Mathf.Abs(diff_z - diff_x) > diff_y)
+            {
+                return onNormal * diff_y;
+            }
+            else
+            {
+                return diff_z < diff_x ? onNormal * diff_z : onNormal * diff_x;
+            }
+            //increase all components until 1 of them is ~= to the parallel in the other vector
+            //do while *= 1.01 would destroy system, so the vector is scaled
         }
         public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal) 
         {
