@@ -134,12 +134,7 @@ namespace CustomMath
         }
         public static Vec3 ClampMagnitude(Vec3 vector, float maxLength) //MUST CHECK
         {
-            if (SqrMagnitude(vector) > maxLength*maxLength)
-            {
-                vector *= (maxLength * maxLength) / SqrMagnitude(vector);
-            }
-         
-            return vector; 
+            return vector *= (maxLength * maxLength) / SqrMagnitude(vector); 
         }
         public static float Magnitude(Vec3 vector)
         {
@@ -196,7 +191,15 @@ namespace CustomMath
         }
         public static Vec3 Project(Vec3 vector, Vec3 onNormal) 
         {
-            throw new NotImplementedException();
+            //float diff_x = Math.Abs(vector.x - onNormal.x);
+            //float diff_y = Math.Abs(vector.y - onNormal.y);
+            //float diff_z = Math.Abs(vector.z - onNormal.z);
+
+            //if (Mathf.Abs(diff_z))
+            //{
+
+            //}
+            throw new NotImplementedException(); //increase all components until 1 of them is ~= to the parallel in the other vector
         }
         public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal) 
         {
@@ -204,7 +207,7 @@ namespace CustomMath
         }
         public void Set(float newX, float newY, float newZ)
         {
-            throw new NotImplementedException();
+            this = new Vec3(newX, newY, newZ);
         }
         public void Scale(Vec3 scale)
         {
