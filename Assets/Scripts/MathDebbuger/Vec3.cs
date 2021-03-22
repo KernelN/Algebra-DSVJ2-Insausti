@@ -11,9 +11,9 @@ namespace CustomMath
         public float y;
         public float z;
 
-        public float sqrMagnitude { get { throw new NotImplementedException(); } }
+        public float sqrMagnitude { get { return SqrMagnitude(this); } }
         public Vector3 normalized { get { throw new NotImplementedException(); } }
-        public float magnitude { get { throw new NotImplementedException(); } }
+        public float magnitude { get { return Magnitude(this); } }
         #endregion
 
         #region constants
@@ -134,15 +134,20 @@ namespace CustomMath
         }
         public static Vec3 ClampMagnitude(Vec3 vector, float maxLength) //MUST CHECK
         {
-            return vector *= (maxLength * maxLength) / SqrMagnitude(vector); 
+            if (SqrMagnitude(vector) > maxLength * maxLength)
+            {
+                vector *= (maxLength * maxLength) / SqrMagnitude(vector);
+            }
+
+            return vector;
         }
         public static float Magnitude(Vec3 vector)
         {
             return (float)Math.Sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
         }
-        public static Vec3 Cross(Vec3 a, Vec3 b)
+        public static Vec3 Cross(Vec3 a, Vec3 b) //MUST CHECK
         {
-            return new Vec3(a.y * b.z - b.y * a.z, a.z * b.x - b.z * a.x, a.x * b.y - b.x * a.y); //MUST CHECK
+            return new Vec3(a.y * b.z - b.y * a.z, a.z * b.x - b.z * a.x, a.x * b.y - b.x * a.y);
         }
         public static float Distance(Vec3 a, Vec3 b)
         {
@@ -175,7 +180,7 @@ namespace CustomMath
             if (a.y < b.y) { a.y = b.y; }
             if (a.z < b.z) { a.z = b.z; }
 
-            return a;
+            return a; //creates vector that is made from the largest components of the two vectors.
         }
         public static Vec3 Min(Vec3 a, Vec3 b)
         {
@@ -183,13 +188,13 @@ namespace CustomMath
             if (a.y > b.y) { a.y = b.y; }
             if (a.z > b.z) { a.z = b.z; }
 
-            return a; 
+            return a; //creates vector that is made from the smallest components of the two vectors.
         }
         public static float SqrMagnitude(Vec3 vector)
         {
             return vector.x * vector.x + vector.y * vector.y + vector.z * vector.z;
         }
-        public static Vec3 Project(Vec3 vector, Vec3 onNormal) 
+        public static Vec3 Project(Vec3 vector, Vec3 onNormal) //MUST CHECK
         {
             float diff_x = Math.Abs(vector.x - onNormal.x);
             float diff_y = Math.Abs(vector.y - onNormal.y);
@@ -209,6 +214,7 @@ namespace CustomMath
         public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal) 
         {
             throw new NotImplementedException();
+            //inDirection = speed | inNormal = position
         }
         public void Set(float newX, float newY, float newZ)
         {
