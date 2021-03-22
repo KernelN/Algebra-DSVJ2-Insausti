@@ -211,7 +211,7 @@ namespace CustomMath
         }
         public void Scale(Vec3 scale)
         {
-            throw new NotImplementedException();
+            this = new Vec3(this.x * scale.x, this.y * scale.y, this.z * scale.z); //must be a shorter way
         }
         public void Normalize()
         {
