@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 namespace CustomMath
 {
+    [System.Serializable]
     public struct Vec3 : IEquatable<Vec3>
     {
         #region Variables
@@ -211,9 +210,9 @@ namespace CustomMath
             //increase all components until 1 of them is ~= to the parallel in the other vector
             //do while *= 1.01 would destroy system, so the vector is scaled
         }
-        public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal) 
+        public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal) //MUST CHECK
         {
-            throw new NotImplementedException();
+            return Dot(inDirection, inNormal) * inNormal;
             //inDirection = speed | inNormal = position
         }
         public void Set(float newX, float newY, float newZ)
