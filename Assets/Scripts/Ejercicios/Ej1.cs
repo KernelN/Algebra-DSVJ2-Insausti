@@ -42,8 +42,8 @@ public class Ej1 : MonoBehaviour
             case 5:
                 Cinco();
                 break;
-            case 6:                              
-                Uno();
+            case 6:
+                Seis();
                 break;
             case 7:
                 Uno();
