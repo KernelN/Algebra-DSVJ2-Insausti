@@ -38,7 +38,7 @@ public class Ej1 : MonoBehaviour
                 Uno();
                 break;
             case 2:
-                Uno();
+                Dos();
                 break;
             case 3:
                 Uno();
@@ -76,5 +76,9 @@ public class Ej1 : MonoBehaviour
     void Uno() //COMPLETO
     {
         rojo = azul + blanco;
+    }
+    void Dos() //COMPLETO
+    {
+        rojo = azul - blanco;
     }
 }
