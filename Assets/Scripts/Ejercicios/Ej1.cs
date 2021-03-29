@@ -41,10 +41,10 @@ public class Ej1 : MonoBehaviour
                 Dos();
                 break;
             case 3:
-                Uno();
+                Tres();
                 break;
             case 4:
-                Uno();
+                Cuatro();
                 break;
             case 5:
                 Uno();
@@ -80,5 +80,14 @@ public class Ej1 : MonoBehaviour
     void Dos() //COMPLETO
     {
         rojo = azul - blanco;
+    }
+    void Tres() //COMPLETO
+    {
+        rojo = azul;
+        rojo.Scale(blanco);
+    }
+    void Cuatro()
+    {
+        rojo = Vec3.Cross(azul, blanco);
     }
 }
