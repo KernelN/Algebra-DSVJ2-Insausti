@@ -11,7 +11,6 @@ public class Ej1 : MonoBehaviour
     public Vec3 blanco;
 
     public int ejercicio;
-    int ejActual;
 
     void Start()
     {
@@ -26,12 +25,6 @@ public class Ej1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ejActual != ejercicio)
-        {
-            ejActual = ejercicio;
-            rojo = new Vec3(0, 0, 0);
-        }
-
         switch (ejercicio)
         {
             case 1:
@@ -47,9 +40,9 @@ public class Ej1 : MonoBehaviour
                 Cuatro();
                 break;
             case 5:
-                Uno();
+                Cinco();
                 break;
-            case 6:
+            case 6:                              
                 Uno();
                 break;
             case 7:
@@ -86,8 +79,24 @@ public class Ej1 : MonoBehaviour
         rojo = azul;
         rojo.Scale(blanco);
     }
-    void Cuatro()
+    void Cuatro() //COMPLETO
     {
         rojo = Vec3.Cross(azul, blanco);
+    }
+
+    float timer;
+    void Cinco() //COMPLETO
+    {
+        rojo = Vec3.Lerp(azul, blanco, timer);
+        timer += 0.2f * Time.deltaTime;
+        if (Vec3.SqrMagnitude(rojo - azul) >= Vec3.SqrMagnitude(blanco - azul))
+        {
+            timer = 0;
+        }
+    }
+
+    void Seis() //COMPLETO
+    {
+        rojo = Vec3.Max(azul, blanco);
     }
 }
