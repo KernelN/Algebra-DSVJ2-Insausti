@@ -46,7 +46,7 @@ public class Ej1 : MonoBehaviour
                 Seis();
                 break;
             case 7:
-                Uno();
+                Siete();
                 break;
             case 8:
                 Uno();
@@ -98,5 +98,9 @@ public class Ej1 : MonoBehaviour
     void Seis() //COMPLETO
     {
         rojo = Vec3.Max(azul, blanco);
+    }
+    void Siete() //COMPLETO
+    {
+        rojo = Vec3.Project(azul, blanco);
     }
 }
