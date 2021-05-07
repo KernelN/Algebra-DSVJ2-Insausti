@@ -10,9 +10,9 @@ namespace CustomMath
         public float y;
         public float z;
 
-        public float sqrMagnitude { get { return SqrMagnitude(this); } }
-        public Vector3 normalized { get { throw new NotImplementedException(); } }
-        public float magnitude { get { return Magnitude(this); } }
+        public float sqrMagnitude { get { return this.x * this.x + this.y * this.y + this.z * this.z; } }
+        public Vec3 normalized { get { return sqrMagnitude > 0 ? this / magnitude : this; } }
+        public float magnitude { get { return Mathf.Sqrt(this.sqrMagnitude); } }
         #endregion
 
         #region constants
@@ -129,22 +129,25 @@ namespace CustomMath
         }
         public static float Angle(Vec3 from, Vec3 to) //MUST CHECK
         {
-            return (float)Math.Atan((from.y - to.y) / (from.x - to.x)); 
+            return (float)Math.Atan((from.y - to.y) / (from.x - to.x));
         }
         public static Vec3 ClampMagnitude(Vec3 vector, float maxLength) //MUST CHECK
         {
-            if (SqrMagnitude(vector) > maxLength * maxLength)
+            if (SqrMagnitude(vector) > maxLength * maxLength) //check current magnitude is bigger than maxLength
             {
-                vector *= (maxLength * maxLength) / SqrMagnitude(vector);
+                vector.Normalize(); //make it's magnitude 1
+                vector *= maxLength; //multiply everything by the target magnitude
             }
 
             return vector;
         }
         public static float Magnitude(Vec3 vector)
         {
-            return (float)Math.Sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
+            return Mathf.Sqrt(SqrMagnitude(vector));
+            //the 3 components of vector can be used to make a rectangle triangle, 
+            //the magnitude function returns the hypothenuse using pythagoras theorem
         }
-        public static Vec3 Cross(Vec3 a, Vec3 b) 
+        public static Vec3 Cross(Vec3 a, Vec3 b)
         {
             return new Vec3(a.y * b.z - b.y * a.z, a.z * b.x - b.z * a.x, a.x * b.y - b.x * a.y);
         }
@@ -193,27 +196,40 @@ namespace CustomMath
         {
             return vector.x * vector.x + vector.y * vector.y + vector.z * vector.z;
         }
-        public static Vec3 Project(Vec3 vector, Vec3 onNormal) //MUST CHECK
+        public static Vec3 Project(Vec3 vector, Vec3 onNormal)
         {
-            float diff_x = Math.Abs(vector.x - onNormal.x);
-            float diff_y = Math.Abs(vector.y - onNormal.y);
-            float diff_z = Math.Abs(vector.z - onNormal.z);
+            if (onNormal.sqrMagnitude == 0)
+            {
+                return onNormal;
+            }
 
-            if (Mathf.Abs(diff_z - diff_x) > diff_y)
-            {
-                return onNormal * diff_y;
-            }
-            else
-            {
-                return diff_z < diff_x ? onNormal * diff_z : onNormal * diff_x;
-            }
-            //increase all components until 1 of them is ~= to the parallel in the other vector
-            //do while *= 1.01 would destroy system, so the vector is scaled
+            onNormal.Normalize();
+
+            return onNormal * Dot(vector, onNormal);
+            //Dot(vector, normal) gives you the target magnitude eliminating the null components of onNormal
+            //(.Dot is like magnitude but using 2 different vectors instead of 1)
+            //multiplies onNormal (magnitude 1) by the target magnitude
+
+            //https://stackoverflow.com/questions/26958198/vector-projection-rejection-in-c
         }
-        public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal) //MUST CHECK
+        public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal)
         {
-            return Dot(inDirection, inNormal) * inNormal;
-            //inDirection = speed | inNormal = position
+            //inNormal.Normalize();
+            Vec3 aux = Project(inDirection, inNormal) + inDirection;
+            return Project(aux, inNormal);
+            //return inDirection - 2 * Dot(inDirection, inNormal) * inNormal;
+            //inDirection = speed | inNormal = normal vector of the plane in which inDirection is reflected
+
+            /*
+             * Reflect creates a isosceles triangle (between inDirection and result)
+             * when crossed by the inNormal vector, the triangle becomes 2 rectangle triangles
+             * inDirection + the adjacent leg of the rectangle triangle = result
+             * so 
+             * 
+             */
+
+            //https://docs.google.com/drawings/d/1ZiFlsP0eCDdVjM5VYNB4_npeqmbwRZMAeRs7Bg3EoPA/edit?usp=sharing
+            //http://bocilmania.com/2018/04/21/how-to-get-reflection-vector/
         }
         public void Set(float newX, float newY, float newZ)
         {
@@ -225,7 +241,16 @@ namespace CustomMath
         }
         public void Normalize()
         {
-            this *= 1 / SqrMagnitude(this);
+            if (sqrMagnitude > 0)
+            {
+                this /= magnitude;
+            }
+
+            //grab the triangle formed by the components and the magnitude, and divide each compontent by the magnitude
+            //dividing each component by the magnitude is like dividing the magnitude by itself, 
+            //so the magnitude becomes 1
+
+            //https://www.khanacademy.org/computing/computer-programming/programming-natural-simulations/programming-vectors/a/vector-magnitude-normalization
         }
         #endregion
 

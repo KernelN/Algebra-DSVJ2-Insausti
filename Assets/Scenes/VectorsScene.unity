@@ -270,14 +270,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   azul:
-    x: 0
+    x: 1
     y: 0
     z: 0
   blanco:
-    x: 0
-    y: 0
+    x: 2
+    y: 2
     z: 0
-  ejercicio: 6
+  ejercicio: 9
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0

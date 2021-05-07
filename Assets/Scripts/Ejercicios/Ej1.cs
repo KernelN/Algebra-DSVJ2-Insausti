@@ -4,8 +4,11 @@ using UnityEngine;
 using MathDebbuger;
 using CustomMath;
 
+//[ExecuteInEditMode]
 public class Ej1 : MonoBehaviour
 {
+    Vector3 verde;
+    Vec3 result;
     Vec3 rojo;
     public Vec3 azul;
     public Vec3 blanco;
@@ -14,10 +17,18 @@ public class Ej1 : MonoBehaviour
 
     void Start()
     {
+        Vector3Debugger.AddVector(result, Color.magenta, "result");
+        Vector3Debugger.EnableEditorView("result");
+
+        Vector3Debugger.AddVector(verde, Color.green, "elVerde");
+        Vector3Debugger.EnableEditorView("elVerde");
+
         Vector3Debugger.AddVector(rojo, Color.red, "elRojo");
         Vector3Debugger.EnableEditorView("elRojo");
+
         Vector3Debugger.AddVector(azul, Color.blue, "elAzul");
         Vector3Debugger.EnableEditorView("elAzul");
+
         Vector3Debugger.AddVector(blanco, Color.white, "elBlanco");
         Vector3Debugger.EnableEditorView("elBlanco");
     }
@@ -49,10 +60,10 @@ public class Ej1 : MonoBehaviour
                 Siete();
                 break;
             case 8:
-                Uno();
+                Ocho();
                 break;
             case 9:
-                Uno();
+                Nueve();
                 break;
             case 10:
                 Uno();
@@ -61,6 +72,8 @@ public class Ej1 : MonoBehaviour
                 break;
         }
 
+        Vector3Debugger.UpdatePosition("result", result);
+        Vector3Debugger.UpdatePosition("elVerde", verde);
         Vector3Debugger.UpdatePosition("elRojo", rojo);
         Vector3Debugger.UpdatePosition("elAzul", azul);
         Vector3Debugger.UpdatePosition("elBlanco", blanco);
@@ -101,6 +114,20 @@ public class Ej1 : MonoBehaviour
     }
     void Siete() //COMPLETO
     {
-        rojo = Vec3.Project(azul, blanco);
+        verde = Vector3.Project(blanco, azul);
+        rojo = Vec3.Project(blanco, azul);
+    }
+    void Ocho() //COMPLETO
+    {
+        verde = Vector3.Lerp(blanco, azul, 0.5f);
+        rojo = Vec3.Lerp(blanco, azul, 0.5f);
+    }
+    void Nueve() //COMPLETO
+    {
+        verde = Vector3.Reflect(azul, blanco);
+        rojo = Vec3.Reflect(azul, blanco);
+        result.x = rojo.magnitude;
+        result.y = verde.magnitude;
+        result.z = azul.magnitude;
     }
 }
