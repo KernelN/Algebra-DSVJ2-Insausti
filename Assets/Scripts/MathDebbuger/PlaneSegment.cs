@@ -41,11 +41,11 @@ namespace CustomMath
             rightDirection = right;
             this.center = center;
         }
-        public CustomPlane GeneratePlane()
+        public Plane GeneratePlane()
         {
-            return new CustomPlane(TopRightPoint, TopLeftPoint, BottomLeftPoint);
+            return new Plane(TopRightPoint, TopLeftPoint, BottomLeftPoint);
         }
-        public void UpdatePlane(ref CustomPlane oldPlane)
+        public void UpdatePlane(ref Plane oldPlane)
         {
             oldPlane.Set3Points(TopRightPoint, TopLeftPoint, BottomLeftPoint);
         }

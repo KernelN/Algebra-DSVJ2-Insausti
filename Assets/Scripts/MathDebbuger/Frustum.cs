@@ -17,12 +17,12 @@ namespace CustomMath
         public PlaneSegment farSegment;
 
         //Planes
-        CustomPlane left;
-        CustomPlane right;
-        CustomPlane bottom;
-        CustomPlane top;
-        CustomPlane far;
-        CustomPlane near;
+        Plane left;
+        Plane right;
+        Plane bottom;
+        Plane top;
+        Plane far;
+        Plane near;
 
 
         #endregion
@@ -48,21 +48,20 @@ namespace CustomMath
 
             //------------BUILD PLANES--------------inverts positive planes's normal because they point outside
             //----------------------------------left
-            left = new CustomPlane(farSegment.TopLeftPoint, nearSegment.BottomLeftPoint, originObj.position);
-            left.Flip();
+            left = new Plane(farSegment.TopLeftPoint, nearSegment.BottomLeftPoint, originObj.position);
             //----------------------------------right
-            right = new CustomPlane(farSegment.TopRightPoint, nearSegment.BottomRightPoint, originObj.position);
-            //right.Flip();
+            right = new Plane(farSegment.TopRightPoint, nearSegment.BottomRightPoint, originObj.position);
+            right.normal = -right.normal;
             //----------------------------------bottom
-            bottom = new CustomPlane(farSegment.BottomLeftPoint, nearSegment.BottomRightPoint, originObj.position);
+            bottom = new Plane(farSegment.BottomLeftPoint, nearSegment.BottomRightPoint, originObj.position);
             //----------------------------------top
-            top = new CustomPlane(farSegment.TopLeftPoint, nearSegment.TopRightPoint, originObj.position);
-            top.Flip();
+            top = new Plane(farSegment.TopLeftPoint, nearSegment.TopRightPoint, originObj.position);
+            top.normal = -top.normal;
             //----------------------------------near
             near = nearSegment.GeneratePlane();
             //----------------------------------far
             far = farSegment.GeneratePlane();
-            far.Flip();
+            far.normal = -far.normal;
         }
         #endregion
 
@@ -77,10 +76,9 @@ namespace CustomMath
             //------------UPDATE PLANES--------------flip positive planes because they point outside of frustum
             //----------------------------------left
             left.Set3Points(farSegment.TopLeftPoint, nearSegment.BottomLeftPoint, frustumOrigin.position);
-            left.Flip();
             //----------------------------------right
             right.Set3Points(farSegment.TopRightPoint, nearSegment.BottomRightPoint, frustumOrigin.position);
-            //right.Flip();
+            right.Flip();
             //----------------------------------bottom
             bottom.Set3Points(farSegment.BottomLeftPoint, nearSegment.BottomRightPoint, frustumOrigin.position);
             //----------------------------------top

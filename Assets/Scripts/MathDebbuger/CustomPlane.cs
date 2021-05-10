@@ -54,15 +54,16 @@ namespace CustomMath
         }
         public void Flip()
         {
-            normal = -normal;
-            distance = -distance;
+            normal *= -1;
+            distance *= -1; //
         }
-        public float GetDistanceToPoint(Vec3 point)
+        public float GetDistanceToPoint(Vec3 point) //MUST CHECK
         {
             //return (ClosestPointOnPlane(point) - point).magnitude;
             return Vec3.Dot(normal, point) + distance;
+            //Dot() gives you
         }
-        public bool GetSide(Vec3 point)
+        public bool GetSide(Vec3 point) //MUST CHECK
         {
             /*
             Vec3 closestPoint = ClosestPointOnPlane(point);
@@ -71,7 +72,7 @@ namespace CustomMath
             return sideTrue.sqrMagnitude < sideFalse.sqrMagnitude; //sideTrue is shorter than sideFalse
             */
 
-            return  GetDistanceToPoint(point) > -epsilon; //return if distance is bigger than smallest -0,0...01f
+            return GetDistanceToPoint(point) > -epsilon; //return if distance is bigger than smallest -0,0...01f
         }
         public bool Raycast(Ray ray, out float enter) //DON'T DO
         {
@@ -85,8 +86,7 @@ namespace CustomMath
         {
             Vec3 aux = Vec3.Cross(b - a, c - a); //Cross returns prependicular vector to 2 vectors
             normal = aux.normalized;
-            distance = aux.x * a.x - aux.y * a.y - aux.z * a.z;
-            //https://www.youtube.com/watch?v=ijXUQfwL8Kg
+            distance = aux.magnitude;
         }
         public void SetNormalAndPosition(Vec3 inNormal, Vec3 inPoint)
         {
