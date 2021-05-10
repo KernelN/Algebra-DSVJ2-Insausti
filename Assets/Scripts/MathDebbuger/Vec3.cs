@@ -154,7 +154,9 @@ namespace CustomMath
         }
         public static Vec3 Cross(Vec3 a, Vec3 b)
         {
-            return new Vec3(a.y * b.z - b.y * a.z, a.z * b.x - b.z * a.x, a.x * b.y - b.x * a.y);
+            return new Vec3((a.y * b.z - b.y * a.z), -(a.x * b.z - b.x * a.z), (a.x * b.y - b.x * a.y));
+            //         Vec3((a.2 * b.3 - b.2 * a.3), -(a.1 * b.3 - b.1 * a.3), (a.1 * b.2 - b.1 * a.2));
+            //https://mathinsight.org/cross_product_formula
         }
         public static float Distance(Vec3 a, Vec3 b)
         {
@@ -219,21 +221,20 @@ namespace CustomMath
         }
         public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal)
         {
-            //inNormal.Normalize();
-            Vec3 aux = Project(inDirection, inNormal) + inDirection;
-            return Project(aux, inNormal);
-            //return inDirection - 2 * Dot(inDirection, inNormal) * inNormal;
+            //Vec3 aux = Project(inDirection, inNormal) + inDirection;
+            //return Project(aux, inNormal);
+            //https://docs.google.com/drawings/d/1ZiFlsP0eCDdVjM5VYNB4_npeqmbwRZMAeRs7Bg3EoPA/edit?usp=sharing
+
+
+            inNormal.Normalize();
+            return inDirection - 2 * Dot(inDirection, inNormal) * inNormal;
             //inDirection = speed | inNormal = normal vector of the plane in which inDirection is reflected
 
             /*
              * Reflect creates a isosceles triangle (between inDirection and result)
              * when crossed by the inNormal vector, the triangle becomes 2 rectangle triangles
              * inDirection + the adjacent leg of the rectangle triangle = result
-             * so 
-             * 
              */
-
-            //https://docs.google.com/drawings/d/1ZiFlsP0eCDdVjM5VYNB4_npeqmbwRZMAeRs7Bg3EoPA/edit?usp=sharing
             //http://bocilmania.com/2018/04/21/how-to-get-reflection-vector/
         }
         public void Set(float newX, float newY, float newZ)
