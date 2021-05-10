@@ -111,6 +111,11 @@ namespace CustomMath
             return new Vec3(v3.x / scalar, v3.y / scalar, v3.z / scalar);
         }
 
+        public static implicit operator Vec3(Vector3 v3)
+        {
+            return new Vec3(v3.x, v3.y, v3.z);
+        }
+
         public static implicit operator Vector3(Vec3 v3)
         {
             return new Vector3(v3.x, v3.y, v3.z);
@@ -118,7 +123,7 @@ namespace CustomMath
 
         public static implicit operator Vector2(Vec3 v2)
         {
-            return new Vector3(v2.x, v2.y);
+            return new Vector2(v2.x, v2.y);
         }
         #endregion
 
