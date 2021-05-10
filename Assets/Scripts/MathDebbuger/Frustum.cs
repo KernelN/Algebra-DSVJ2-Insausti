@@ -69,8 +69,10 @@ namespace CustomMath
         public void Update()
         {
             //----------UPDATE PLANE SEGMENTS------------
-            nearSegment.center = frustumOrigin.position + frustumOrigin.forward * nearDistance;
-            farSegment.center = frustumOrigin.position + frustumOrigin.forward * farDistance;
+            Vec3 auxCenter = frustumOrigin.position + frustumOrigin.forward * nearDistance;
+            nearSegment.Update(frustumOrigin.up, frustumOrigin.right, auxCenter);
+            auxCenter = frustumOrigin.position + frustumOrigin.forward * farDistance;
+            farSegment.Update(frustumOrigin.up, frustumOrigin.right, auxCenter);
             //------------UPDATE PLANES--------------flip positive planes because they point outside of frustum
             //----------------------------------left
             left.Set3Points(farSegment.TopLeftPoint, nearSegment.BottomLeftPoint, frustumOrigin.position);

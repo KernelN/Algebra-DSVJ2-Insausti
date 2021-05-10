@@ -8,15 +8,15 @@ namespace CustomMath
     public struct PlaneSegment
     {
         #region Variables
-        Vec3 upDirection; //the y direction relative to the center NOT TO THE WORLD
-        Vec3 rightDirection; //the y direction relative to the center NOT TO THE WORLD
+        public Vec3 upDirection; //the y direction relative to the center NOT TO THE WORLD
+        public Vec3 rightDirection; //the y direction relative to the center NOT TO THE WORLD
         public Vec3 center;
-        public float height;
-        public float width;
-        public Vec3 TopRightPoint { get { return center + upDirection * height / 2 + rightDirection * width / 2; } }
-        public Vec3 TopLeftPoint { get { return center + upDirection * height / 2 - rightDirection * width / 2; } }
-        public Vec3 BottomRightPoint { get { return center - upDirection * height / 2 + rightDirection * width / 2; } }
-        public Vec3 BottomLeftPoint { get { return center - upDirection * height / 2 - rightDirection * width / 2; } }
+        float height;
+        float width;
+        public Vec3 TopRightPoint { get { return center + upDirection * (height / 2) + rightDirection * (width / 2); } }
+        public Vec3 TopLeftPoint { get { return center + upDirection * (height / 2) - rightDirection * (width / 2); } }
+        public Vec3 BottomRightPoint { get { return center - upDirection * (height / 2) + rightDirection * (width / 2); } }
+        public Vec3 BottomLeftPoint { get { return center - upDirection * (height / 2) - rightDirection * (width / 2); } }
         #endregion
 
         #region constants
@@ -35,6 +35,12 @@ namespace CustomMath
         #endregion
 
         #region Functions
+        public void Update(Vec3 up, Vec3 right, Vec3 center)
+        {
+            upDirection = up;
+            rightDirection = right;
+            this.center = center;
+        }
         public Plane GeneratePlane()
         {
             return new Plane(TopRightPoint, TopLeftPoint, BottomLeftPoint);
